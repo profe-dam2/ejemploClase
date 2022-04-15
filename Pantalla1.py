@@ -56,7 +56,7 @@ class Pantalla1(Screen):
         self.add_widget(self.etiqueta2)
 
 
-    def EjcutarAccion2(self):
+    def EjecutarAccion2(self):
         print('PRESIONANDO')
         USER = '1damX'
         PASS = '1234'
