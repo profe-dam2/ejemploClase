@@ -6,6 +6,7 @@ import ResponseModel
 from ResponseModel import *
 import requests
 from kivy.uix.button import Button
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
@@ -68,7 +69,7 @@ class Pantalla1(Screen):
 
 
 
-class BotonRojo(Button):
+class BotonRojo(ButtonBehavior):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         print('INICIA')
