@@ -10,7 +10,7 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 
-url = 'localhost:8071'
+url = 'http://192.168.1.116:8071'
 
 class Pantalla1(Screen):
     def __init__(self, **kw):
