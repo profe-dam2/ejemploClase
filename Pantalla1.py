@@ -78,7 +78,7 @@ class BotonRojo(Button):
 
 
 
-    async def on_press(self):
+    def on_press(self):
         print('PRESIONANDO')
         USER = '1damX'
         PASS = '1234'
@@ -87,9 +87,9 @@ class BotonRojo(Button):
         tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
         tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
         requestModel = {'led': 11, 'state':None}
-        response = await ak.event(requests.post(url + '/raspberrySemaforo1', data=json.dumps(requestModel),
+        response = requests.post(url + '/raspberrySemaforo1', data=json.dumps(requestModel),
                           headers={"Content-Type": "application/json"},
-                          auth=(USER, tokenSHA256)).json())
+                          auth=(USER, tokenSHA256)).json()
 
         responseJSON = json.loads(response['response'])
         print(responseJSON['data'])
@@ -98,11 +98,11 @@ class BotonRojo(Button):
         else:
             requestModel = {'led': 11, 'state': True}
 
-        response = await ak.event(requests.post(url + '/raspberrySemaforo1',
+        response = requests.post(url + '/raspberrySemaforo1',
                                  data=json.dumps(requestModel),
                                  headers={
                                      "Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256)))
+                                 auth=(USER, tokenSHA256))
 
 
 
