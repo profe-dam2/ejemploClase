@@ -29,14 +29,14 @@ class Pantalla1(Screen):
                           bold=True, size_hint=(.5, .2),
                           pos_hint={'bottom': 1, 'center_x': .5})
 
-        btnROJO = BotonRojo()
+        btnROJO = Button()
         btnROJO.pos_hint = {'center_x':.25, 'center_y':.5}
         btnROJO.size_hint = (.15,.2)
 
 
 
-        #btnROJO.bind(
-         #   on_press=lambda x: self.EjecutarAccion('Has pulsado ROJO', (1,0,0,1)))
+        btnROJO.bind(
+            on_press=self.EjecutarAccion2)
 
         btnAMARILLO = BotonAmarillo()
         btnAMARILLO.pos_hint = {'center_x': .5, 'center_y': .5}
@@ -56,6 +56,33 @@ class Pantalla1(Screen):
         self.add_widget(self.etiqueta2)
 
 
+    def EjcutarAccion2(self):
+        print('PRESIONANDO')
+        USER = '1damX'
+        PASS = '1234'
+        passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
+        minutes = str(datetime.datetime.now().minute)
+        tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
+        tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
+        requestModel = {'led': 11, 'state': None}
+        response = requests.post(url + '/raspberrySemaforo1',
+                                 data=json.dumps(requestModel),
+                                 headers={"Content-Type": "application/json"},
+                                 auth=(USER, tokenSHA256)).json()
+
+        responseJSON = json.loads(response['response'])
+        print(responseJSON['data'])
+        if responseJSON['data']:
+            requestModel = {'led': 11, 'state': False}
+        else:
+            requestModel = {'led': 11, 'state': True}
+
+        response = requests.post(url + '/raspberrySemaforo1',
+                                 data=json.dumps(requestModel),
+                                 headers={
+                                     "Content-Type": "application/json"},
+                                 auth=(USER, tokenSHA256))
+
     def EjecutarAccion(self, accion, color):
         self.etiqueta2.text = accion
         self.etiqueta2.color = color
@@ -69,7 +96,7 @@ class Pantalla1(Screen):
 
 
 
-class BotonRojo(ButtonBehavior):
+class BotonRojo(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         print('INICIA')
