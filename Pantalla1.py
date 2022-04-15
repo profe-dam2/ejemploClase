@@ -78,7 +78,7 @@ class BotonRojo(Button):
 
 
 
-    def on_press(self):
+    def on_release(self):
         print('PRESIONANDO')
         USER = '1damX'
         PASS = '1234'
