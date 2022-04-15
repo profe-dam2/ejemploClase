@@ -71,6 +71,7 @@ class Pantalla1(Screen):
 class BotonRojo(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        print('INICIA')
         self.background_normal = 'imagenes/ledROJO.png'
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
