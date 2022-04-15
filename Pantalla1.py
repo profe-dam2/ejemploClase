@@ -56,31 +56,6 @@ class Pantalla1(Screen):
         self.etiqueta2.text = accion
         self.etiqueta2.color = color
 
-        USER = '1damX'
-        PASS = '1234'
-        passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
-        minutes = str(datetime.datetime.now().minute)
-        tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
-        tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
-        requestModel = {'led': 11, 'state': None}
-        response = requests.post(url + '/raspberrySemaforo1',
-                                 data=json.dumps(requestModel),
-                                 headers={"Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256)).json()
-
-        responseJSON = json.loads(response['response'])
-        print(responseJSON['data'])
-        if responseJSON['data']:
-            requestModel = {'led': 11, 'state': False}
-        else:
-            requestModel = {'led': 11, 'state': True}
-
-        response = requests.post(url + '/raspberrySemaforo1',
-                                 data=json.dumps(requestModel),
-                                 headers={
-                                     "Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256))
-
         # if color == 'verde':
         #     self.etiqueta2.color = (0,1,0,1)
         # elif color == 'rojo':
@@ -97,7 +72,30 @@ class BotonRojo(Button):
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
 
+    def on_touch_down(self, touch):
+        USER = '1damX'
+        PASS = '1234'
+        passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
+        minutes = str(datetime.datetime.now().minute)
+        tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
+        tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
+        requestModel = {'led': 11, 'state':None}
+        response = requests.post(url + '/raspberrySemaforo1', data=json.dumps(requestModel),
+                          headers={"Content-Type": "application/json"},
+                          auth=(USER, tokenSHA256)).json()
 
+        responseJSON = json.loads(response['response'])
+        print(responseJSON['data'])
+        if responseJSON['data'] :
+            requestModel = {'led': 11, 'state': False}
+        else:
+            requestModel = {'led': 11, 'state': True}
+
+        response = requests.post(url + '/raspberrySemaforo1',
+                                 data=json.dumps(requestModel),
+                                 headers={
+                                     "Content-Type": "application/json"},
+                                 auth=(USER, tokenSHA256))
 
 
 
