@@ -72,7 +72,8 @@ class BotonRojo(Button):
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
 
-    def on_touch_down(self, touch):
+    async def on_press(self):
+        print('PRESIONANDO')
         USER = '1damX'
         PASS = '1234'
         passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
@@ -80,7 +81,7 @@ class BotonRojo(Button):
         tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
         tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
         requestModel = {'led': 11, 'state':None}
-        response = requests.post(url + '/raspberrySemaforo1', data=json.dumps(requestModel),
+        response = await requests.post(url + '/raspberrySemaforo1', data=json.dumps(requestModel),
                           headers={"Content-Type": "application/json"},
                           auth=(USER, tokenSHA256)).json()
 
@@ -91,7 +92,7 @@ class BotonRojo(Button):
         else:
             requestModel = {'led': 11, 'state': True}
 
-        response = requests.post(url + '/raspberrySemaforo1',
+        response = await requests.post(url + '/raspberrySemaforo1',
                                  data=json.dumps(requestModel),
                                  headers={
                                      "Content-Type": "application/json"},
