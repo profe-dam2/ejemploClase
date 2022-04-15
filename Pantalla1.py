@@ -35,8 +35,8 @@ class Pantalla1(Screen):
 
 
 
-        btnROJO.bind(
-            on_press=lambda x: self.EjecutarAccion('Has pulsado ROJO', (1,0,0,1)))
+        #btnROJO.bind(
+         #   on_press=lambda x: self.EjecutarAccion('Has pulsado ROJO', (1,0,0,1)))
 
         btnAMARILLO = BotonAmarillo()
         btnAMARILLO.pos_hint = {'center_x': .5, 'center_y': .5}
