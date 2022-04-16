@@ -108,8 +108,8 @@ while 1:
 
 
     zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
-    xAxisAngleValue = asin(max(yAxisValue / zAxisValue-0.1,-1))
-    yAxisAngleValue = asin(max(xAxisValue / zAxisValue,-1))
+    xAxisAngleValue = asin(min(0,max(yAxisValue / zAxisValue-0.1,-1)))
+    yAxisAngleValue = asin(min(0,max(xAxisValue / zAxisValue,-1)))
 
     xAngleValue = 0.98 * (
                 xAngleValue + xGyroValue * 0.05) + 0.02 * xAxisAngleValue
