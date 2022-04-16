@@ -1,6 +1,6 @@
 from math import asin
 
-
+import np as np
 import smbus
 import time
 # kivy
@@ -26,7 +26,7 @@ class My3D(App):
         self.renderer.camera.aspect = aspect
 
     def rotate_cube(self, anglex):
-        self.cube.rotation.x = anglex
+        self.cube.rotation.x = np.rad2deg(anglex)
 
     def build(self):
         layout = FloatLayout()
