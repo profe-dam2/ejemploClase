@@ -16,8 +16,28 @@ from kivy3 import PerspectiveCamera
 from kivy3.extras.geometries import BoxGeometry
 from kivy3 import Material, Mesh
 
-import IMU
 
+
+# slave address
+DEV_ADDR = 0x68  # device address
+# register address
+ACCEL_XOUT = 0x3b
+ACCEL_YOUT = 0x3d
+ACCEL_ZOUT = 0x3f
+TEMP_OUT = 0x41
+GYRO_XOUT = 0x43
+GYRO_YOUT = 0x45
+GYRO_ZOUT = 0x47
+PWR_MGMT_1 = 0x6b  # PWR_MGMT_1
+PWR_MGMT_2 = 0x6c  # PWR_MGMT_2
+zGyroAngleValue = 0
+yAngleValue = 0
+xAngleValue = 0
+xAxisAngleValue = 0
+yAxisAngleValue = 0
+bus = smbus.SMBus(1)
+
+bus.write_byte_data(DEV_ADDR, PWR_MGMT_1, 0)
 
 class My3D(App):
     def _adjust_aspect(self, *args):
@@ -72,26 +92,6 @@ class My3D(App):
 my3d = My3D()
 my3d.run()
 
-# slave address
-DEV_ADDR = 0x68  # device address
-# register address
-ACCEL_XOUT = 0x3b
-ACCEL_YOUT = 0x3d
-ACCEL_ZOUT = 0x3f
-TEMP_OUT = 0x41
-GYRO_XOUT = 0x43
-GYRO_YOUT = 0x45
-GYRO_ZOUT = 0x47
-PWR_MGMT_1 = 0x6b  # PWR_MGMT_1
-PWR_MGMT_2 = 0x6c  # PWR_MGMT_2
-zGyroAngleValue = 0
-yAngleValue = 0
-xAngleValue = 0
-xAxisAngleValue = 0
-yAxisAngleValue = 0
-bus = smbus.SMBus(1)
-
-bus.write_byte_data(DEV_ADDR, PWR_MGMT_1, 0)
 
 #s = serial.Serial('/dev/rfcomm0', 9600)
 
