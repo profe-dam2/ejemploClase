@@ -107,7 +107,7 @@ class My3D(App):
 
 
     # Sensor data read
-    def read_word_sensor(self, adr):
+    def read_word_sensor(self, adr, *dt):
         val = self.read_word(adr)
         if (val >= 0x8000):  # minus
             return -((65535 - val) + 1)
