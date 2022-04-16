@@ -26,7 +26,7 @@ class My3D(App):
         self.renderer.camera.aspect = aspect
 
     def rotate_cube(self, anglex):
-        self.cube.rotation.x = numpy.np.rad2deg(anglex)
+        self.cube.rotation.x = (anglex * 180) / 3.1416
 
     def build(self):
         layout = FloatLayout()
