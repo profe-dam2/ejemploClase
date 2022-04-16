@@ -19,7 +19,7 @@ bus = smbus.SMBus(1)
 
 bus.write_byte_data(DEV_ADDR, PWR_MGMT_1, 0)
 
-s = serial.Serial('/dev/rfcomm0', 9600)
+#s = serial.Serial('/dev/rfcomm0', 9600)
 
 
 # 2byte read
@@ -84,7 +84,7 @@ while 1:
         int(accel_x * 100)) + ',' + str(int(accel_y * 100)) + ',' + str(
         int(accel_z * 100)) + ',\n'
     print(send_s)
-    s.write(bytes(send_s, 'UTF-8'))
+    #s.write(bytes(send_s, 'UTF-8'))
 
     time.sleep(0.05)
 
