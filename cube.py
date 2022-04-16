@@ -99,7 +99,7 @@ class My3D(App):
         return layout
 
     # 2byte read
-    def read_word(adr):
+    def read_word(self, adr):
         high = bus.read_byte_data(DEV_ADDR, adr)
         low = bus.read_byte_data(DEV_ADDR, adr + 1)
         val = (high << 8) + low
@@ -107,7 +107,7 @@ class My3D(App):
 
 
     # Sensor data read
-    def read_word_sensor(self, adr, *dt):
+    def read_word_sensor(self, adr):
         val = self.read_word(adr)
         if (val >= 0x8000):  # minus
             return -((65535 - val) + 1)
