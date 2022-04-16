@@ -108,8 +108,8 @@ while 1:
 
     try:
         zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
-        xAxisAngleValue = asin(yAxisValue / zAxisValue)
-        yAxisAngleValue = asin(xAxisValue / zAxisValue)
+        xAxisAngleValue = asin(yAxisValue / zAxisValue+0.001)
+        yAxisAngleValue = asin(xAxisValue / zAxisValue+0.001)
     except:
         print("error")
     xAngleValue = 0.98 * (
