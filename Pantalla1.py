@@ -29,13 +29,13 @@ class Pantalla1(Screen):
                           bold=True, size_hint=(.5, .2),
                           pos_hint={'bottom': 1, 'center_x': .5})
 
-        btnROJO = Button()
+        btnROJO = BotonRojo()
         btnROJO.pos_hint = {'center_x':.25, 'center_y':.5}
         btnROJO.size_hint = (.15,.2)
 
 
 
-        btnROJO.bind(on_press=lambda x:self.EjecutarAccion2())
+        #btnROJO.bind(on_press=lambda x:self.EjecutarAccion2())
 
         btnAMARILLO = BotonAmarillo()
         btnAMARILLO.pos_hint = {'center_x': .5, 'center_y': .5}
