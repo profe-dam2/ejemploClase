@@ -107,7 +107,7 @@ class BotonRojo(Button):
 
 
     def on_touch_down(self, touch):
-        if touch.grab is not self:
+        if touch.grab_current is not self:
             print('PRESIONANDO')
             USER = '1damX'
             PASS = '1234'
@@ -133,7 +133,7 @@ class BotonRojo(Button):
                                          "Content-Type": "application/json"},
                                      auth=(USER, tokenSHA256))
 
-
+        return super(..., self).on_touch_down(touch)
 
 
 
