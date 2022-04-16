@@ -111,7 +111,7 @@ while 1:
         xAxisAngleValue = asin(yAxisValue / zAxisValue)
         yAxisAngleValue = asin(xAxisValue / zAxisValue)
     except:
-        pass
+        print("error")
     xAngleValue = 0.98 * (
                 xAngleValue + xGyroValue * 0.05) + 0.02 * xAxisAngleValue
     yAngleValue = 0.98 * (
