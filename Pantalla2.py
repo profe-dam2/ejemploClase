@@ -42,7 +42,7 @@ class Pantalla2(Screen):
 class BotonSecuencia(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.background_normal = 'imagenes/ledROJO.png'
+        self.background_normal = 'imagenes/ledGRIS.png'
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
         self.threadSECUENCIA = Thread(target=self.secuencia, args=())
