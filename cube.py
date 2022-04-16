@@ -149,28 +149,21 @@ while 1:
     gyro_x, gyro_y, gyro_z = get_gyro_data_deg()  # gyro
     accel_x, accel_y, accel_z = get_accel_data_g()  # accel
 
-    print('%f[deg C] gyro[deg/s] x:%f y:%f z:%f accel[g] x:%f y:%f z:%f' % (
-    temp, gyro_x, gyro_y, gyro_z, accel_x, accel_y, accel_z))
-    send_s = str(int(temp * 100)) + ',' + str(int(gyro_x * 100)) + ',' + str(
-        int(gyro_y * 100)) + ',' + str(int(gyro_z * 100)) + ',' + str(
-        int(accel_x * 100)) + ',' + str(int(accel_y * 100)) + ',' + str(
-        int(accel_z * 100)) + ',\n'
-    #print(send_s)
-    #s.write(bytes(send_s, 'UTF-8'))
 
-    xGyroValue = float(str(int(gyro_x * 100))) / 100 * 3.142 / 180
-    yGyroValue = float(str(int(gyro_y * 100))) / 100 * 3.142 / 180
-    zGyroValue = float(str(int(gyro_z * 100))) / 100 * 3.142 / 180
-    xAxisValue = float(int(accel_x * 100)) / 100
-    yAxisValue = float(int(accel_y * 100)) / 100
-    zAxisValue = float(int(accel_z * 100)) / 100
 
-    print(xGyroValue)
-    print(yGyroValue)
-    print(zGyroValue)
-    print(xAxisValue)
-    print(yAxisValue)
-    print(zAxisValue)
+    xGyroValue = float(gyro_x * 100) / 100 * 3.142 / 180
+    yGyroValue = float(gyro_y * 100) / 100 * 3.142 / 180
+    zGyroValue = float(gyro_z * 100) / 100 * 3.142 / 180
+    xAxisValue = float(accel_x * 100) / 100
+    yAxisValue = float(accel_y * 100) / 100
+    zAxisValue = float(accel_z * 100) / 100
+
+    # print(xGyroValue)
+    # print(yGyroValue)
+    # print(zGyroValue)
+    # print(xAxisValue)
+    # print(yAxisValue)
+    # print(zAxisValue)
 
 
     zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
