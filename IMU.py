@@ -19,6 +19,8 @@ PWR_MGMT_2 = 0x6c  # PWR_MGMT_2
 zGyroAngleValue = 0
 yAngleValue = 0
 xAngleValue = 0
+xAxisAngleValue = 0
+yAxisAngleValue = 0
 bus = smbus.SMBus(1)
 
 bus.write_byte_data(DEV_ADDR, PWR_MGMT_1, 0)
