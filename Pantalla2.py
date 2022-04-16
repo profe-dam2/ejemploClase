@@ -104,3 +104,5 @@ class BotonSecuencia(Button):
             sleep(1)
 
             self.secuencia()
+        request = {'led': 13, 'state': False}
+        response = APIHandler().sendRequest(request)
