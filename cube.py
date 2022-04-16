@@ -94,7 +94,7 @@ class My3D(App):
         self.renderer.bind(size=self._adjust_aspect)
 
         layout.add_widget(self.renderer)
-        #Clock.schedule_interval(self.rotate_cube, .01)
+        Clock.schedule_interval(self.myBucle, .01)
 
         return layout
 
