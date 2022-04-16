@@ -108,11 +108,7 @@ class BotonRojo(Button):
 
 
     def on_release(self):
-
         print('PRESIONANDO')
-
-        passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
-        minutes = str(datetime.datetime.now().minute)
         tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
         tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
         request = {'led': 11, 'state':None}
@@ -141,7 +137,7 @@ class BotonAmarillo(Button):
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
 
-    def on_press(self):
+    def on_release(self):
         tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
         tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
         request = {'led': 13, 'state':None}
