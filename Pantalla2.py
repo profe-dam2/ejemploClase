@@ -106,3 +106,4 @@ class BotonSecuencia(Button):
             self.secuencia()
         request = {'led': 13, 'state': False}
         response = APIHandler().sendRequest(request)
+        self.parent.imagenAMARILLO.source = 'imagenes/ledGRIS.png'
