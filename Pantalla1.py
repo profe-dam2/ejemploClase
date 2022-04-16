@@ -107,7 +107,7 @@ class BotonRojo(Button):
 
 
     def on_touch_down(self, touch):
-        if touch.grab_current is not self:
+        if touch.grab_current is self:
             print('PRESIONANDO')
             USER = '1damX'
             PASS = '1234'
