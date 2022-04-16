@@ -104,11 +104,12 @@ while 1:
     print(yAxisValue)
     print(zAxisValue)
 
-    zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
-
-    xAxisAngleValue = asin(yAxisValue / zAxisValue)
-    yAxisAngleValue = asin(xAxisValue / zAxisValue)
-
+    try:
+        zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
+        xAxisAngleValue = asin(yAxisValue / zAxisValue)
+        yAxisAngleValue = asin(xAxisValue / zAxisValue)
+    except:
+        pass
     xAngleValue = 0.98 * (
                 xAngleValue + xGyroValue * 0.05) + 0.02 * xAxisAngleValue
     yAngleValue = 0.98 * (
