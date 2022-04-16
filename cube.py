@@ -26,6 +26,8 @@ class My3D(App):
         self.renderer.camera.aspect = aspect
 
     def rotate_cube(self, anglex):
+        print("CAMBIANDO ANGULO")
+        print((anglex * 180) / 3.1416)
         self.cube.rotation.x = (anglex * 180) / 3.1416
 
     def build(self):
