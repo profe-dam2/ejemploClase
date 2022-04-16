@@ -1,6 +1,6 @@
 from math import asin
 
-import numpy
+
 import smbus
 import time
 # kivy
