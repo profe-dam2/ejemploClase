@@ -89,8 +89,6 @@ class My3D(App):
 
         return layout
 
-my3d = My3D()
-my3d.run()
 
 
 #s = serial.Serial('/dev/rfcomm0', 9600)
@@ -146,6 +144,11 @@ def get_accel_data_g():
     return [x, y, z]
 
 
+my3d = My3D()
+my3d.run()
+
+
+
 while 1:
     temp = get_temp()  # temperture
     gyro_x, gyro_y, gyro_z = get_gyro_data_deg()  # gyro
@@ -169,6 +172,8 @@ while 1:
 
 
     zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
+
+
     try:
         xAxisAngleValue = asin(min(0,max(yAxisValue / zAxisValue,-1)))
         yAxisAngleValue = asin(min(0,max(xAxisValue / zAxisValue,-1)))
