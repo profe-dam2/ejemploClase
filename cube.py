@@ -147,7 +147,7 @@ class My3D(App):
         z = z / 16384.0
         return [x, y, z]
 
-    def myBucle(self):
+    def myBucle(self, *dt):
         temp = self.get_temp()  # temperture
         gyro_x, gyro_y, gyro_z = self.get_gyro_data_deg()  # gyro
         accel_x, accel_y, accel_z = self.get_accel_data_g()  # accel
