@@ -15,19 +15,19 @@ try:
         # print (" ay = " , ( accel['y'] ))
         # print (" az = " , ( accel['z'] ))
         gyro = mpu9250.readGyro()
-        print (" gx = " , ( gyro['x'] ))
-        print (" gy = " , ( gyro['y'] ))
-        print (" gz = " , ( gyro['z'] ))
-        z = z + gyro['z']
-        y = y + gyro['y']
-        x = x + gyro['x']
+        # print (" gx = " , ( gyro['x'] ))
+        # print (" gy = " , ( gyro['y'] ))
+        # print (" gz = " , ( gyro['z'] ))
+        z = gyro['z']
+        y = gyro['y']
+        x = gyro['x']
         # mag = mpu9250.readMagnet()
         # print (" mx = " , ( mag['x'] ))
         # print (" my = " , ( mag['y'] ))
         # print (" mz = " , ( mag['z'] ))
         print(x,y,z)
 
-        time.sleep(0.1)
+        time.sleep(0.5)
 
 except KeyboardInterrupt:
     sys.exit()
