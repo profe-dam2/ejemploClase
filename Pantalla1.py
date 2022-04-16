@@ -1,7 +1,12 @@
 import json
 import datetime
 from hashlib import sha256
+from threading import Thread
+from time import sleep
+
 import asynckivy as ak
+
+from APIHandler import *
 import ResponseModel
 from ResponseModel import *
 import requests
@@ -39,6 +44,8 @@ class Pantalla1(Screen):
         btnROJO.size_hint = (.15,.2)
 
 
+        #btnROJO.bind(on_press=lambda x: )
+
         btnAMARILLO = BotonAmarillo()
         btnAMARILLO.pos_hint = {'center_x': .5, 'center_y': .5}
         btnAMARILLO.size_hint = (.15, .2)
@@ -56,78 +63,73 @@ class Pantalla1(Screen):
         self.add_widget(etiqueta1)
         self.add_widget(self.etiqueta2)
 
-
-    def EjecutarAccion2(self):
-        print('PRESIONANDO')
-
-        passSHA256 = sha256(PASS.encode('utf-8')).hexdigest()
-        minutes = str(datetime.datetime.now().minute)
-        tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
-        tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
-        requestModel = {'led': 11, 'state': None}
-        response = requests.post(URL + '/raspberrySemaforo1',
-                                 data=json.dumps(requestModel),
-                                 headers={"Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256)).json()
-
-        responseJSON = json.loads(response['response'])
-        print(responseJSON['data'])
-        if responseJSON['data']:
-            requestModel = {'led': 11, 'state': False}
-        else:
-            requestModel = {'led': 11, 'state': True}
-
-        response = requests.post(URL + '/raspberrySemaforo1',
-                                 data=json.dumps(requestModel),
-                                 headers={
-                                     "Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256))
-
     def EjecutarAccion(self, accion, color):
         self.etiqueta2.text = accion
         self.etiqueta2.color = color
-
-        # if color == 'verde':
-        #     self.etiqueta2.color = (0,1,0,1)
-        # elif color == 'rojo':
-        #     self.etiqueta2.color = (1,0,0,1)
-        # else:
-        #     self.etiqueta2.color = (1,1,0,1)
 
 
 
 class BotonRojo(Button):
     def __init__(self, **kwargs):
-        super(BotonRojo, self).__init__(**kwargs)
-        print('INICIA')
+        super().__init__(**kwargs)
         self.background_normal = 'imagenes/ledROJO.png'
         self.background_down = 'imagenes/ledGRIS.png'
         self.border = (0,0,0,0)
-        #await ak.event(self, 'on_press')
-
-
+        self.threadSECUENCIA = Thread(target=self.secuencia, args=())
+        self.killed = False
 
     def on_release(self):
-        print('PRESIONANDO')
-        tokenString = USER + '/raspberrySemaforo1' + passSHA256 + minutes
-        tokenSHA256 = sha256(tokenString.encode('utf-8')).hexdigest()
-        request = {'led': 11, 'state':None}
-        response = requests.post(URL + '/raspberrySemaforo1', data=json.dumps(request),
-                          headers={"Content-Type": "application/json"},
-                          auth=(USER, tokenSHA256)).json()
 
-        responseJSON = json.loads(response['response'])
-        print(responseJSON['data'])
-        if responseJSON['data']:
-            request = {'led': 11, 'state': False}
+        # request = {'led': 11, 'state': None}
+        # response = APIHandler().sendRequest(request)
+        #
+        # if response['data']:
+        #     request = {'led': 11, 'state': False}
+        # else:
+        #     request = {'led': 11, 'state': True}
+        #
+        # response = APIHandler().sendRequest(request)
+
+
+
+        if self.threadSECUENCIA.is_alive():
+            print("IS ALIVE")
+            self.killed = True
+            #self.threadSECUENCIA.join()
         else:
-            request = {'led': 11, 'state': True}
+            self.killed = False
+            self.threadSECUENCIA = Thread(target=self.secuencia, args=())
+            self.threadSECUENCIA.start()
 
-        response = requests.post(URL + '/raspberrySemaforo1',
-                                 data=json.dumps(request),
-                                 headers={
-                                     "Content-Type": "application/json"},
-                                 auth=(USER, tokenSHA256))
+
+    def secuencia(self):
+        while not self.killed:
+            request = {'led': 11, 'state': True}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 13, 'state': False}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 15, 'state': False}
+            response = APIHandler().sendRequest(request)
+
+            sleep(3)
+            request = {'led': 11, 'state': False}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 13, 'state': False}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 15, 'state': True}
+            response = APIHandler().sendRequest(request)
+
+            sleep(3)
+            request = {'led': 11, 'state': False}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 13, 'state': True}
+            response = APIHandler().sendRequest(request)
+            request = {'led': 15, 'state': False}
+            response = APIHandler().sendRequest(request)
+
+            sleep(1)
+
+            self.secuencia()
 
 
 class BotonAmarillo(Button):
