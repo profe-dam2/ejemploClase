@@ -1,34 +1,63 @@
 from math import asin
 
-xGyroValue = float(splitdata[1] ) /100 *3.142 /180
-yGyroValue = float(splitdata[2] ) /100 *3.142 /180
-zGyroValue = float(splitdata[3] ) /100 *3.142 /180
-xAxisValue = float(splitdata[4] ) /100
-yAxisValue = float(splitdata[5] ) /100
-zAxisValue = float(splitdata[6] ) /100
+# kivy
+from kivy.app import App
+from kivy.uix.floatlayout import FloatLayout
+from kivy.clock import Clock
 
-print(xGyroValue)
-print(yGyroValue)
-print(zGyroValue)
-print(xAxisValue)
-print(yAxisValue)
-print(zAxisValue)
+# kivy3
+from kivy3 import Renderer, Scene
+from kivy3 import PerspectiveCamera
 
-
-zGyroAngleValue = zGyroAngleValue + zGyroValue *0.05
+# geometry
+from kivy3.extras.geometries import BoxGeometry
+from kivy3 import Material, Mesh
 
 
-xAxisAngleValue = asin(yAxisValue /zAxisValue)
-yAxisAngleValue = asin(xAxisValue /zAxisValue)
+class My3D(App):
+    def _adjust_aspect(self, *args):
+        rsize = self.renderer.size
+        aspect = rsize[0] / float(rsize[1])
+        self.renderer.camera.aspect = aspect
 
-xAngleValue = 0.98 * (xAngleValue + xGyroValue *0.05 ) +0.02 *xAxisAngleValue
-yAngleValue = 0.98 * (yAngleValue - yGyroValue *0.05 ) +0.02 *yAxisAngleValue
+    def rotate_cube(self, *dt):
+        self.cube.rotation.y += 1
 
-print(xAngleValue)
-print(yAngleValue)
-print(zGyroAngleValue)
+    def build(self):
+        layout = FloatLayout()
 
+        # create renderer
+        self.renderer = Renderer()
 
-# rotateX(xAngleValue)
-# rotateY(zGyroAngleValue)
-# rotateZ(yAngleValue)
+        # create scene
+        scene = Scene()
+
+        # create default cube for scene
+        cube_geo = BoxGeometry(1, 1, 1)
+        cube_mat = Material()
+        self.cube = Mesh(
+            geometry=cube_geo,
+            material=cube_mat
+        )  # default pos == (0, 0, 0)
+        self.cube.pos.z = -5
+
+        # create camera for scene
+        self.camera = PerspectiveCamera(
+            fov=75,    # distance from the screen
+            aspect=0,  # "screen" ratio
+            near=1,    # nearest rendered point
+            far=10     # farthest rendered point
+        )
+
+        # start rendering the scene and camera
+        scene.add(self.cube)
+        self.renderer.render(scene, self.camera)
+
+        # set renderer ratio is its size changes
+        # e.g. when added to parent
+        self.renderer.bind(size=self._adjust_aspect)
+
+        layout.add_widget(self.renderer)
+        Clock.schedule_interval(self.rotate_cube, .01)
+        return layout
+My3D().run()
