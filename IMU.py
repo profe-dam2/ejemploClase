@@ -1,3 +1,5 @@
+from math import asin
+
 import smbus
 import time
 import serial
@@ -83,8 +85,42 @@ while 1:
         int(gyro_y * 100)) + ',' + str(int(gyro_z * 100)) + ',' + str(
         int(accel_x * 100)) + ',' + str(int(accel_y * 100)) + ',' + str(
         int(accel_z * 100)) + ',\n'
-    print(send_s)
+    #print(send_s)
     #s.write(bytes(send_s, 'UTF-8'))
+
+    xGyroValue = float(str(int(gyro_x * 100))) / 100 * 3.142 / 180
+    yGyroValue = float(str(int(gyro_y * 100))) / 100 * 3.142 / 180
+    zGyroValue = float(str(int(gyro_z * 100))) / 100 * 3.142 / 180
+    xAxisValue = float(int(accel_x * 100)) / 100
+    yAxisValue = float(int(accel_y * 100)) / 100
+    zAxisValue = float(int(accel_z * 100)) / 100
+
+    print(xGyroValue)
+    print(yGyroValue)
+    print(zGyroValue)
+    print(xAxisValue)
+    print(yAxisValue)
+    print(zAxisValue)
+
+    zGyroAngleValue = zGyroAngleValue + zGyroValue * 0.05
+
+    xAxisAngleValue = asin(yAxisValue / zAxisValue)
+    yAxisAngleValue = asin(xAxisValue / zAxisValue)
+
+    xAngleValue = 0.98 * (
+                xAngleValue + xGyroValue * 0.05) + 0.02 * xAxisAngleValue
+    yAngleValue = 0.98 * (
+                yAngleValue - yGyroValue * 0.05) + 0.02 * yAxisAngleValue
+
+    print(xAngleValue)
+    print(yAngleValue)
+    print(zGyroAngleValue)
+
+    # rotateX(xAngleValue)
+    # rotateY(zGyroAngleValue)
+    # rotateZ(yAngleValue)
+
+
 
     time.sleep(0.05)
 
