@@ -153,12 +153,12 @@ class My3D(App):
         gyro_x, gyro_y, gyro_z = self.get_gyro_data_deg()  # gyro
         accel_x, accel_y, accel_z = self.get_accel_data_g()  # accel
 
-        xGyroValue = float(gyro_x * 100) / 100 * 3.142 / 180
-        yGyroValue = float(gyro_y * 100) / 100 * 3.142 / 180
-        zGyroValue = float(gyro_z * 100) / 100 * 3.142 / 180
-        xAxisValue = float(accel_x * 100) / 100
-        yAxisValue = float(accel_y * 100) / 100
-        zAxisValue = float(accel_z * 100) / 100
+        self.xGyroValue = float(gyro_x * 100) / 100 * 3.142 / 180
+        self.yGyroValue = float(gyro_y * 100) / 100 * 3.142 / 180
+        self.zGyroValue = float(gyro_z * 100) / 100 * 3.142 / 180
+        self.xAxisValue = float(accel_x * 100) / 100
+        self.yAxisValue = float(accel_y * 100) / 100
+        self.zAxisValue = float(accel_z * 100) / 100
 
         # print(xGyroValue)
         # print(yGyroValue)
@@ -167,7 +167,7 @@ class My3D(App):
         # print(yAxisValue)
         # print(zAxisValue)
 
-        self.zGyroAngleValue = self.zGyroAngleValue + zGyroValue * 0.05
+        self.zGyroAngleValue = self.zGyroAngleValue + self.zGyroValue * 0.05
 
         try:
             self.xAxisAngleValue = asin(min(0, max(self.yAxisValue / self.zAxisValue, -1)))
@@ -175,9 +175,9 @@ class My3D(App):
         except:
             print("ERROR")
         self.xAngleValue = 0.98 * (
-                self.xAngleValue + xGyroValue * 0.05) + 0.02 * self.xAxisAngleValue
-        yAngleValue = 0.98 * (
-                self.yAngleValue - yGyroValue * 0.05) + 0.02 * self.yAxisAngleValue
+                self.xAngleValue + self.xGyroValue * 0.05) + 0.02 * self.xAxisAngleValue
+        self.yAngleValue = 0.98 * (
+                self.yAngleValue - self.yGyroValue * 0.05) + 0.02 * self.yAxisAngleValue
 
         print(self.xAngleValue)
         print(self.yAngleValue)
