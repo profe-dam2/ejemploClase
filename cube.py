@@ -187,7 +187,7 @@ class My3D(App):
         # rotateY(zGyroAngleValue)
         # rotateZ(yAngleValue)
 
-        my3d.rotate_cube(self.xAngleValue)
+        my3d.rotate_cube(self.xAngleValue, self.yAngleValue)
 
         time.sleep(0.05)
 
