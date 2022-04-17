@@ -55,8 +55,8 @@ class My3D(App):
     def rotate_cube(self, anglex, angley):
         print("CAMBIANDO ANGULO")
         print((anglex * 180) / 3.1416)
-        #self.cube.rotation.x = (anglex * 180) / 3.1416
-        self.cube.rotation.y = (anglex * 180) / 3.1416
+        self.cube.rotation.x = (anglex * 180) / 3.1416
+        self.cube.rotation.y = (angley * 180) / 3.1416
 
     def build(self):
 
